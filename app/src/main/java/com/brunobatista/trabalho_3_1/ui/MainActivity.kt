@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.brunobatista.trabalho_3_1.databinding.ActivityMainBinding
 import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioListActivity
+import com.brunobatista.trabalho_3_1.ui.veiculo.VeiculoCadastroActivity
 import com.brunobatista.trabalho_3_1.ui.veiculo.VeiculoListActivity
 
 
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnVeiculo.setOnClickListener{
-            CadastroVeiculo()
+            //CadastroVeiculo()
+            EditarVeiculo()
         }
 
         binding.btnCliente.setOnClickListener{
@@ -60,5 +62,11 @@ class MainActivity : AppCompatActivity() {
 
     fun CadastroVeiculo() {
         startActivity(Intent(this, VeiculoListActivity::class.java))
+    }
+
+    fun EditarVeiculo() {
+        val intent = Intent(this, VeiculoCadastroActivity::class.java)
+        intent.putExtra("KEY_VEICULOID", 1);
+        startActivity(intent);
     }
 }

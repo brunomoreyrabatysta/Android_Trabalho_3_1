@@ -4,6 +4,7 @@ import com.brunobatista.trabalho_3_1.model.Result
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface IUsuarioService {
@@ -15,6 +16,6 @@ interface IUsuarioService {
     @GET("v1/usuarios")
     fun getAll(): Call<Result>
 
-    @GET("v1/usuarios")
-    fun getId(@Query("usuarioId") usuarioId: Int): Call<Result>
+    @GET("v1/usuarios/{usuarioId}")
+    fun getId(@Path("usuarioId") usuarioId: Int): Call<Result>
 }

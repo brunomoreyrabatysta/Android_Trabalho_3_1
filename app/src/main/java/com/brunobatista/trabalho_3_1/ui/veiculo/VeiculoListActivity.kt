@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.brunobatista.trabalho_3_1.R
 import com.brunobatista.trabalho_3_1.databinding.ActivityUsuarioListBinding
 import com.brunobatista.trabalho_3_1.databinding.ActivityVeiculoListBinding
+import com.brunobatista.trabalho_3_1.model.Veiculo
 import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioAdapter
 import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioViewModel
 
