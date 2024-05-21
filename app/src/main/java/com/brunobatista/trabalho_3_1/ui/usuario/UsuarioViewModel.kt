@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brunobatista.trabalho_3_1.model.Result
+import com.brunobatista.trabalho_3_1.model.User
+import com.brunobatista.trabalho_3_1.model.Users
 import com.brunobatista.trabalho_3_1.model.Usuario
 import com.brunobatista.trabalho_3_1.services.IUsuarioService
 import com.brunobatista.trabalho_3_1.services.RetrofitClient
@@ -13,25 +15,25 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UsuarioViewModel : ViewModel() {
-    private var listUsuarioLiveData = MutableLiveData<List<Usuario>>()
-    private var usuarioLiveData = MutableLiveData<Usuario>()
+    private var listUsuarioLiveData = MutableLiveData<List<Users>>()
+    private var usuarioLiveData = MutableLiveData<Users>()
 
     fun getUsuarioAll() {
         RetrofitClient.createService(IUsuarioService::class.java).getAll()
-            .enqueue(object : Callback<Result> {
-                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        listUsuarioLiveData.value = response.body()!!.data as List<Usuario>
+                        listUsuarioLiveData.value = response.body()!!.data
                     }
                 }
 
-                override fun onFailure(call: Call<Result>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.d("UsuarioViewModel", t.message.toString())
                 }
             })
     }
 
-    fun observeListUsuarioLiveData(): LiveData<List<Usuario>> {
+    fun observeListUsuarioLiveData(): LiveData<List<Users>> {
         return listUsuarioLiveData
     }
 
@@ -40,7 +42,7 @@ class UsuarioViewModel : ViewModel() {
             .enqueue(object : Callback<Result> {
                 override fun onResponse(call: Call<Result>, response: Response<Result>) {
                     if(response.isSuccessful) {
-                        usuarioLiveData.value = response.body()!!.data as Usuario
+//                        usuarioLiveData.value = response.body()!!.data as Usuario
                     }
                 }
 
@@ -51,7 +53,7 @@ class UsuarioViewModel : ViewModel() {
             })
     }
 
-    fun observeUsuarioLiveData(): LiveData<Usuario> {
+    fun observeUsuarioLiveData(): LiveData<Users> {
         return usuarioLiveData
     }
 }

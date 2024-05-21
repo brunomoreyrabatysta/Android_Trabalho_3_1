@@ -6,14 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.brunobatista.trabalho_3_1.databinding.UsuarioItemBinding
 import com.brunobatista.trabalho_3_1.databinding.VeiculoItemBinding
+import com.brunobatista.trabalho_3_1.model.Vehicle
+import com.brunobatista.trabalho_3_1.model.Vehicles
 import com.brunobatista.trabalho_3_1.model.Veiculo
 import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioAdapter
 
 class VeiculoAdapter: RecyclerView.Adapter<VeiculoAdapter.ViewHolder>() {
-    private var veiculoList = ArrayList<Veiculo>()
+    private var veiculoList = ArrayList<Vehicles>()
 
-    fun setVeiculoList(veiculoList: List<Veiculo>) {
-        this.veiculoList = veiculoList as ArrayList<Veiculo>
+    fun setVeiculoList(veiculoList: List<Vehicles>) {
+        this.veiculoList = veiculoList as ArrayList<Vehicles>
         notifyDataSetChanged()
     }
 
@@ -32,10 +34,10 @@ class VeiculoAdapter: RecyclerView.Adapter<VeiculoAdapter.ViewHolder>() {
         //var geral = this.teste[position]
         ///var veiculo = veiculoList[position]
 
-        holder.binding.lblVeiculoId.text = "1"
-        holder.binding.lblMarca.text = "FIAT"
-        holder.binding.lblModelo.text = "CRONOS GSR 1.3"
-        holder.binding.lblPlaca.text = "PBJ-0C79"
+        holder.binding.lblVeiculoId.text = veiculoList.get(position).veiculoId.toString()
+        holder.binding.lblMarca.text = veiculoList.get(position).marca
+        holder.binding.lblModelo.text = veiculoList.get(position).modelo
+        holder.binding.lblPlaca.text = veiculoList.get(position).placa
 
         /*
         holder.binding.lblVeiculoId.text = veiculo.veiculoId.toString()

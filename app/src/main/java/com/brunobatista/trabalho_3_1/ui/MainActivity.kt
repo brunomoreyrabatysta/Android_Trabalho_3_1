@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnVeiculo.setOnClickListener{
-            //CadastroVeiculo()
-            EditarVeiculo()
+            CadastroVeiculo()
+//            EditarVeiculo()
         }
 
         binding.btnCliente.setOnClickListener{

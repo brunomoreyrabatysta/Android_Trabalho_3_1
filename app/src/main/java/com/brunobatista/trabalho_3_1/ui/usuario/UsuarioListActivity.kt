@@ -22,8 +22,8 @@ class UsuarioListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[UsuarioViewModel::class.java]
         viewModel.getUsuarioAll()
         viewModel.observeListUsuarioLiveData().observe(this, Observer { usuarioList ->
-            Log.d("UsuarioListActivity", "CREATE")
-            Log.d("UsuarioListActivity", usuarioList.toString())
+//            Log.d("UsuarioListActivity", "CREATE")
+//            Log.d("UsuarioListActivity", usuarioList.size.toString())
             usuarioAdapter.setUsuarioList(usuarioList)
         })
     }

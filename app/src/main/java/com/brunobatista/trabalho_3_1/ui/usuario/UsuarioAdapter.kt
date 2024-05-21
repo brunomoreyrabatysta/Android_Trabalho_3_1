@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.brunobatista.trabalho_3_1.databinding.UsuarioItemBinding
+import com.brunobatista.trabalho_3_1.model.Users
 import com.brunobatista.trabalho_3_1.model.Usuario
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,11 +16,11 @@ import java.util.Arrays
 
 
 class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
-    private var usuarioList = ArrayList<Usuario>()
+    private var usuarioList = ArrayList<Users>()
 
-    fun setUsuarioList(usuarioList: List<Usuario>) {
+    fun setUsuarioList(usuarioList: List<Users>) {
         Log.d("UsuarioAdapter", "setUsuarioList")
-        this.usuarioList = usuarioList as ArrayList<Usuario>
+        this.usuarioList = usuarioList as ArrayList<Users>
         notifyDataSetChanged()
     }
 
@@ -48,9 +49,9 @@ class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
         Log.d("UsuarioAdapter", "Usuário- [${position}] - ${usuario.toString()}")
          */
 
-        holder.binding.lblNome.text = "BRUNO"
-        holder.binding.lblUsuarioId.text = "1"
-        holder.binding.lblEmail.text = "bruno@gmail.com"
+        holder.binding.lblNome.text = usuarioList.get(position).nome
+        holder.binding.lblUsuarioId.text = usuarioList.get(position).usuarioId.toString()
+        holder.binding.lblEmail.text = usuarioList.get(position).email
     }
 
     inline fun <reified T> parseArray(json: String, typeToken: Type): T {

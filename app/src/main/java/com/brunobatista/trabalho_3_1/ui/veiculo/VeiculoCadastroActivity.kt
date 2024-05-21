@@ -59,7 +59,7 @@ class VeiculoCadastroActivity : AppCompatActivity() {
             Log.d("VeiculoCadastroActivity" , "teste 5")
             viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
                 Log.d("VeiculoCadastroActivity" , "teste 1")
-                set(veiculo)
+//                set(veiculo)
             })
         }
     }

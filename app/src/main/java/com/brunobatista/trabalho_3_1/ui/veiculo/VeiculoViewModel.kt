@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brunobatista.trabalho_3_1.model.Result
+import com.brunobatista.trabalho_3_1.model.Vehicle
+import com.brunobatista.trabalho_3_1.model.Vehicles
 import com.brunobatista.trabalho_3_1.model.Veiculo
 import com.brunobatista.trabalho_3_1.services.IVeiculoService
 import com.brunobatista.trabalho_3_1.services.RetrofitClient
@@ -16,24 +18,24 @@ import retrofit2.Response
 
 
 class VeiculoViewModel : ViewModel(){
-    private var listVeiculoLiveData = MutableLiveData<List<Veiculo>>()
-    private var veiculoLiveData = MutableLiveData<Veiculo>()
+    private var listVeiculoLiveData = MutableLiveData<List<Vehicles>>()
+    private var veiculoLiveData = MutableLiveData<Vehicle>()
     fun getVeiculoAll() {
         RetrofitClient.createService(IVeiculoService::class.java).getAll()
-            .enqueue(object : Callback<Result> {
-                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+            .enqueue(object : Callback<Vehicle> {
+                override fun onResponse(call: Call<Vehicle>, response: Response<Vehicle>) {
                     if(response.isSuccessful) {
-                        listVeiculoLiveData.value = response.body()!!.data as List<Veiculo>
+                        listVeiculoLiveData.value = response.body()!!.data
                     }
                 }
 
-                override fun onFailure(call: Call<Result>, t: Throwable) {
+                override fun onFailure(call: Call<Vehicle>, t: Throwable) {
                     Log.d("VeiculoViewModel", t.message.toString())
                 }
             })
     }
 
-    fun observeListVeiculoLiveData(): LiveData<List<Veiculo>> {
+    fun observeListVeiculoLiveData(): LiveData<List<Vehicles>> {
         return listVeiculoLiveData
     }
 
@@ -48,7 +50,7 @@ class VeiculoViewModel : ViewModel(){
                         Log.d("VeiculoViewModel" , "teste 9")
                         Log.d("VeiculoViewModel" , response.body()!!.data.toString())
                         Log.d("VeiculoViewModel" , Converter(response.body()!!.data.toString()).toString())
-                        veiculoLiveData.value = Converter(response.body()!!.data.toString())
+//                        veiculoLiveData.value = Converter(response.body()!!.data.toString())
                     } else {
                         Log.d("VeiculoViewModel",response.message())
                     }
@@ -60,7 +62,7 @@ class VeiculoViewModel : ViewModel(){
             })
     }
 
-    fun observeVeiculoLiveData(): LiveData<Veiculo> {
+    fun observeVeiculoLiveData(): LiveData<Vehicle> {
         Log.d("VeiculoViewModel" , "teste 10")
         return veiculoLiveData
     }
