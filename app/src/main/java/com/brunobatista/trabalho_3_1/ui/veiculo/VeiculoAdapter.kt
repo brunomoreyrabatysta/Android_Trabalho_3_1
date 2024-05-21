@@ -28,20 +28,11 @@ class VeiculoAdapter: RecyclerView.Adapter<VeiculoAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Problema ao fazer a conversão
-        //var geral = this.teste[position]
-        ///var veiculo = veiculoList[position]
+        var veiculo = veiculoList[position]
 
-        holder.binding.lblVeiculoId.text = "1"
-        holder.binding.lblMarca.text = "FIAT"
-        holder.binding.lblModelo.text = "CRONOS GSR 1.3"
-        holder.binding.lblPlaca.text = "PBJ-0C79"
-
-        /*
         holder.binding.lblVeiculoId.text = veiculo.veiculoId.toString()
         holder.binding.lblMarca.text = veiculo.marca
         holder.binding.lblModelo.text = veiculo.modelo
         holder.binding.lblPlaca.text =veiculo.placa
-         */
     }
 }

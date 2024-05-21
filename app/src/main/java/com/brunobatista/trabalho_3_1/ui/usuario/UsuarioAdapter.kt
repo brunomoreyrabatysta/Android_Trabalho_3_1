@@ -34,23 +34,11 @@ class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Problema ao fazer a conversão
-
-        Log.d("UsuarioAdapter", "onBindViewHolder")
-        Log.d("UsuarioAdapter", "Usuarios ${usuarioList.toString()}")
-        Log.d("UsuarioAdapter", "Posição ${position.toString()}")
-
-        Log.d("UsuarioAdapter", "Teste 1")
-
-        /*
         val usuario: Usuario = usuarioList.get(position)
 
-        Log.d("UsuarioAdapter", "Usuário- [${position}] - ${usuario.toString()}")
-         */
-
-        holder.binding.lblNome.text = "BRUNO"
-        holder.binding.lblUsuarioId.text = "1"
-        holder.binding.lblEmail.text = "bruno@gmail.com"
+        holder.binding.lblNome.text = usuario.nome
+        holder.binding.lblUsuarioId.text = usuario.usuarioId.toString()
+        holder.binding.lblEmail.text = usuario.email
     }
 
     inline fun <reified T> parseArray(json: String, typeToken: Type): T {

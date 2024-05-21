@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brunobatista.trabalho_3_1.model.Result
+import com.brunobatista.trabalho_3_1.model.ResultUsuario
+import com.brunobatista.trabalho_3_1.model.ResultUsuarioList
 import com.brunobatista.trabalho_3_1.model.Usuario
 import com.brunobatista.trabalho_3_1.services.IUsuarioService
 import com.brunobatista.trabalho_3_1.services.RetrofitClient
@@ -17,15 +19,17 @@ class UsuarioViewModel : ViewModel() {
     private var usuarioLiveData = MutableLiveData<Usuario>()
 
     fun getUsuarioAll() {
+        Log.d("UsuarioViewModel", "getUsuarioAll")
         RetrofitClient.createService(IUsuarioService::class.java).getAll()
-            .enqueue(object : Callback<Result> {
-                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+            .enqueue(object : Callback<ResultUsuarioList> {
+                override fun onResponse(call: Call<ResultUsuarioList>, response: Response<ResultUsuarioList>
+                ) {
                     if (response.isSuccessful) {
-                        listUsuarioLiveData.value = response.body()!!.data as List<Usuario>
+                        listUsuarioLiveData.value = response.body()!!.data
                     }
                 }
 
-                override fun onFailure(call: Call<Result>, t: Throwable) {
+                override fun onFailure(call: Call<ResultUsuarioList>, t: Throwable) {
                     Log.d("UsuarioViewModel", t.message.toString())
                 }
             })
@@ -37,17 +41,17 @@ class UsuarioViewModel : ViewModel() {
 
     fun getUsuarioById(usuarioId: Int) {
         RetrofitClient.createService(IUsuarioService::class.java).getId(usuarioId)
-            .enqueue(object : Callback<Result> {
-                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+            .enqueue(object : Callback<ResultUsuario> {
+                override fun onResponse(call: Call<ResultUsuario>, response: Response<ResultUsuario>
+                ) {
                     if(response.isSuccessful) {
-                        usuarioLiveData.value = response.body()!!.data as Usuario
+                        usuarioLiveData.value = response.body()!!.data
                     }
                 }
 
-                override fun onFailure(call: Call<Result>, t: Throwable) {
+                override fun onFailure(call: Call<ResultUsuario>, t: Throwable) {
                     Log.d("UsuarioViewModel", t.message.toString())
                 }
-
             })
     }
 

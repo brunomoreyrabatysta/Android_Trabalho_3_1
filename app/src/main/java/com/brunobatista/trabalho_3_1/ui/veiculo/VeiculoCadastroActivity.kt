@@ -51,26 +51,16 @@ class VeiculoCadastroActivity : AppCompatActivity() {
             binding.edtChassi.setText("")
             binding.btnExcluir.setVisibility(View.INVISIBLE)
         } else {
-            Log.d("VeiculoCadastroActivity" , "teste 3")
             viewModel = ViewModelProvider(this)[VeiculoViewModel::class.java]
 
-            Log.d("VeiculoCadastroActivity" , "teste 4")
             viewModel.getVeiculoById(veiculoId.toInt())
-            Log.d("VeiculoCadastroActivity" , "teste 5")
             viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
-                Log.d("VeiculoCadastroActivity" , "teste 1")
                 set(veiculo)
             })
         }
     }
 
-    fun setVeiculo(veiculo: Veiculo) {
-        this.veiculo = veiculo
-        set(veiculo)
-    }
-
     fun set(veiculo: Veiculo) {
-        Log.d("VeiculoCadastroActivity" , "teste 6")
         binding.lblTitulo.setText("ALTERAR CADASTRO")
         val marca = veiculo.marca
         val modelo = veiculo.modelo
@@ -83,8 +73,8 @@ class VeiculoCadastroActivity : AppCompatActivity() {
         binding.edtMarca.setText(marca)
         binding.edtModelo.setText(modelo)
         binding.edtCor.setText(cor)
-        binding.edtAnoFabricacao.setText(anoFabricacao)
-        binding.edtAnoModelo.setText(anoModelo)
+        binding.edtAnoFabricacao.setText(anoFabricacao.toString())
+        binding.edtAnoModelo.setText(anoModelo.toString())
         binding.edtPlaca.setText(placa)
         binding.edtRenavam.setText(renavam)
         binding.edtChassi.setText(chassi)
