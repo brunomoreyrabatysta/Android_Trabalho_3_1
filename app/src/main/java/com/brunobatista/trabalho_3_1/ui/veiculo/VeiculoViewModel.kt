@@ -27,6 +27,8 @@ class VeiculoViewModel : ViewModel(){
                 ) {
                     if(response.isSuccessful) {
                         listVeiculoLiveData.value = response.body()!!.data
+                    } else {
+                        listVeiculoLiveData.value = null
                     }
                 }
 

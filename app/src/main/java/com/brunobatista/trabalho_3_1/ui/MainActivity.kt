@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.brunobatista.trabalho_3_1.databinding.ActivityMainBinding
+import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioCadastroActivity
 import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioListActivity
 import com.brunobatista.trabalho_3_1.ui.veiculo.VeiculoCadastroActivity
 import com.brunobatista.trabalho_3_1.ui.veiculo.VeiculoListActivity
@@ -67,6 +68,12 @@ class MainActivity : AppCompatActivity() {
     fun EditarVeiculo() {
         val intent = Intent(this, VeiculoCadastroActivity::class.java)
         intent.putExtra("KEY_VEICULOID", 1);
+        startActivity(intent);
+    }
+
+    fun EditarUsuario() {
+        val intent = Intent(this, UsuarioCadastroActivity::class.java)
+        intent.putExtra("KEY_USUARIOID", "4");
         startActivity(intent);
     }
 }

@@ -1,21 +1,29 @@
 package com.brunobatista.trabalho_3_1.ui.usuario
 
-import android.R.id.message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.brunobatista.trabalho_3_1.databinding.UsuarioItemBinding
 import com.brunobatista.trabalho_3_1.model.Usuario
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-import java.util.Arrays
 
 
-class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
+class UsuarioAdapter(
+    usuarioListActivity: UsuarioListActivity,
+    usuarioListActivity1: UsuarioListActivity
+) : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
     private var usuarioList = ArrayList<Usuario>()
+
+    private var onDeleteClickListener: OnDeleteClickListener? = null
+    private var onUpdateClickListener: OnUpdateClickListener? = null
+
+    fun UsuarioAdapter(_onDeleteClickListener: OnDeleteClickListener?,
+                        _onUpdateClickListener: OnUpdateClickListener?) {
+        onDeleteClickListener = _onDeleteClickListener
+        onUpdateClickListener = _onUpdateClickListener
+    }
 
     fun setUsuarioList(usuarioList: List<Usuario>) {
         Log.d("UsuarioAdapter", "setUsuarioList")
@@ -24,6 +32,7 @@ class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
     }
 
     class ViewHolder(val binding: UsuarioItemBinding) :RecyclerView.ViewHolder(binding.root) {}
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(UsuarioItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -34,15 +43,27 @@ class UsuarioAdapter : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val usuario: Usuario = usuarioList.get(position)
+        val usuario: Usuario = usuarioList.get(holder.getAdapterPosition())
 
         holder.binding.lblNome.text = usuario.nome
         holder.binding.lblUsuarioId.text = usuario.usuarioId.toString()
         holder.binding.lblEmail.text = usuario.email
+
+        holder.binding.btnExcluir.setOnClickListener {
+            onDeleteClickListener?.onDeleteClick(usuario.usuarioId)
+        };
+
+        holder.binding.btnAlterar.setOnClickListener {
+            onUpdateClickListener?.onUpdateClick(usuario.usuarioId)
+        };
     }
 
-    inline fun <reified T> parseArray(json: String, typeToken: Type): T {
-        val gson = GsonBuilder().create()
-        return gson.fromJson<T>(json, typeToken)
+    interface OnDeleteClickListener {
+        fun onDeleteClick(usuarioId: Int)
+    }
+
+
+    interface OnUpdateClickListener {
+        fun onUpdateClick(usuarioId: Int)
     }
 }

@@ -19,7 +19,6 @@ class UsuarioViewModel : ViewModel() {
     private var usuarioLiveData = MutableLiveData<Usuario>()
 
     fun getUsuarioAll() {
-        Log.d("UsuarioViewModel", "getUsuarioAll")
         RetrofitClient.createService(IUsuarioService::class.java).getAll()
             .enqueue(object : Callback<ResultUsuarioList> {
                 override fun onResponse(call: Call<ResultUsuarioList>, response: Response<ResultUsuarioList>
@@ -46,6 +45,8 @@ class UsuarioViewModel : ViewModel() {
                 ) {
                     if(response.isSuccessful) {
                         usuarioLiveData.value = response.body()!!.data
+                    } else {
+                        usuarioLiveData.value = null
                     }
                 }
 
@@ -57,5 +58,53 @@ class UsuarioViewModel : ViewModel() {
 
     fun observeUsuarioLiveData(): LiveData<Usuario> {
         return usuarioLiveData
+    }
+
+    fun AddUsuario(usuario: Usuario) {
+        RetrofitClient.createService(IUsuarioService::class.java).AddUsuario(usuario)
+            .enqueue(object : Callback<ResultUsuario> {
+                override fun onResponse(call: Call<ResultUsuario>, response: Response<ResultUsuario>
+                ) {
+                    if(response.isSuccessful) {
+                        usuarioLiveData.value = response.body()!!.data
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultUsuario>, t: Throwable) {
+                    Log.d("UsuarioViewModel", t.message.toString())
+                }
+            })
+    }
+
+    fun UpdateUsuario(usuarioId: Int, usuario: Usuario) {
+        RetrofitClient.createService(IUsuarioService::class.java).UpdateUsuario(usuarioId, usuario)
+            .enqueue(object : Callback<ResultUsuario> {
+                override fun onResponse(call: Call<ResultUsuario>, response: Response<ResultUsuario>
+                ) {
+                    if(response.isSuccessful) {
+                        usuarioLiveData.value = response.body()!!.data
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultUsuario>, t: Throwable) {
+                    Log.d("UsuarioViewModel", t.message.toString())
+                }
+            })
+    }
+
+    fun DeleteUsuario(usuarioId: Int) {
+        RetrofitClient.createService(IUsuarioService::class.java).DeleteUsuario(usuarioId)
+            .enqueue(object : Callback<ResultUsuario> {
+                override fun onResponse(call: Call<ResultUsuario>, response: Response<ResultUsuario>
+                ) {
+                    if(response.isSuccessful) {
+                        usuarioLiveData.value = response.body()!!.data
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultUsuario>, t: Throwable) {
+                    Log.d("UsuarioViewModel", t.message.toString())
+                }
+            })
     }
 }

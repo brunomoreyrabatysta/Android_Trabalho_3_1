@@ -21,7 +21,6 @@ class VeiculoCadastroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("ActivityVeiculoCadastroBinding", "teste1")
         binding = ActivityVeiculoCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

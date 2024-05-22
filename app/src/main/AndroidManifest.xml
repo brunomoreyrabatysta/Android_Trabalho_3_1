@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.usuario.UsuarioCadastroActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.veiculo.VeiculoCadastroActivity"
             android:exported="false" />
         <activity
