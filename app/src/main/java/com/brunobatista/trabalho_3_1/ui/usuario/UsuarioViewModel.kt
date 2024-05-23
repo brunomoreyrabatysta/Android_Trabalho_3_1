@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.brunobatista.trabalho_3_1.model.Result
 import com.brunobatista.trabalho_3_1.model.ResultUsuario
 import com.brunobatista.trabalho_3_1.model.ResultUsuarioList
 import com.brunobatista.trabalho_3_1.model.Usuario
@@ -25,6 +24,8 @@ class UsuarioViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         listUsuarioLiveData.value = response.body()!!.data
+                    } else {
+                        listUsuarioLiveData.value = null
                     }
                 }
 
@@ -67,6 +68,8 @@ class UsuarioViewModel : ViewModel() {
                 ) {
                     if(response.isSuccessful) {
                         usuarioLiveData.value = response.body()!!.data
+                    } else {
+                        usuarioLiveData.value = null
                     }
                 }
 
@@ -83,6 +86,8 @@ class UsuarioViewModel : ViewModel() {
                 ) {
                     if(response.isSuccessful) {
                         usuarioLiveData.value = response.body()!!.data
+                    } else {
+                        usuarioLiveData.value = null
                     }
                 }
 
@@ -99,6 +104,8 @@ class UsuarioViewModel : ViewModel() {
                 ) {
                     if(response.isSuccessful) {
                         usuarioLiveData.value = response.body()!!.data
+                    } else {
+                        usuarioLiveData.value = null
                     }
                 }
 

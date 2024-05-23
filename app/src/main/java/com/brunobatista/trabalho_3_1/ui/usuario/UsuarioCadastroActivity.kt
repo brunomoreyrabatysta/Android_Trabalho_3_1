@@ -25,12 +25,7 @@ class UsuarioCadastroActivity : AppCompatActivity() {
         binding = ActivityUsuarioCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //var bundle :Bundle ?=intent.extras
-        Log.d("UsuarioCadastroActivity", "teste 1")
-        //var message = bundle!!.getString("KEY_USUARIOID")
-        //Log.d("UsuarioCadastroActivity", "teste 1 - ${ message }")
         var strUser: String? = intent.getStringExtra("KEY_USUARIOID")
-        Log.d("UsuarioCadastroActivity", "teste 1 - ${ strUser }")
 
         if (strUser != null) {
             usuarioId = strUser

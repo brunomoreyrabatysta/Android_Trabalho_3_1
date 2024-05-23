@@ -1,19 +1,15 @@
 package com.brunobatista.trabalho_3_1.ui.veiculo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.brunobatista.trabalho_3_1.R
-import com.brunobatista.trabalho_3_1.databinding.ActivityUsuarioListBinding
 import com.brunobatista.trabalho_3_1.databinding.ActivityVeiculoListBinding
-import com.brunobatista.trabalho_3_1.model.Veiculo
-import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioAdapter
-import com.brunobatista.trabalho_3_1.ui.usuario.UsuarioViewModel
 
-class VeiculoListActivity : AppCompatActivity() {
+class VeiculoListActivity : AppCompatActivity(), VeiculoAdapter.OnDeleteClickListener, VeiculoAdapter.OnUpdateClickListener {
     private lateinit var binding: ActivityVeiculoListBinding
     private lateinit var veiculoAdapter: VeiculoAdapter
     private lateinit var viewModel: VeiculoViewModel
@@ -29,13 +25,43 @@ class VeiculoListActivity : AppCompatActivity() {
         viewModel.observeListVeiculoLiveData().observe(this, Observer { veiculoList ->
             veiculoAdapter.setVeiculoList(veiculoList)
         })
+
+        binding.btnAdicionar.setOnClickListener{
+            val intent = Intent(this, VeiculoCadastroActivity::class.java)
+            intent.putExtra("KEY_VEICULOID", "");
+            startActivity(intent);
+        }
     }
 
     fun CarregarVeiculos() {
-        veiculoAdapter = VeiculoAdapter()
+        veiculoAdapter = VeiculoAdapter(this, this)
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext, 1)
             adapter = veiculoAdapter
         }
+    }
+
+    override fun onDeleteClick(veiculoId: Int) {
+        Excluir(veiculoId)
+    }
+
+    override fun onUpdateClick(veiculoId: Int) {
+        val intent = Intent(this, VeiculoCadastroActivity::class.java)
+        intent.putExtra("KEY_VEICULOID", veiculoId.toString());
+        startActivity(intent);
+    }
+
+    fun Excluir(veiculoId: Int) {
+        viewModel = ViewModelProvider(this)[VeiculoViewModel::class.java]
+
+        viewModel.DeleteVeiculo(veiculoId.toInt())
+        viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
+            if (veiculo == null) {
+                Toast.makeText(this, "Veículo não cadastrado!", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Veículo excluído com sucesso!", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }

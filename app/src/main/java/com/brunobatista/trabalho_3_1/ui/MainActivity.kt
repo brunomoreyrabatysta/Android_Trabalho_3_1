@@ -20,12 +20,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnUsuario.setOnClickListener{
-            CadastroUsuario()
+            ListarUsuario()
         }
 
         binding.btnVeiculo.setOnClickListener{
-            CadastroVeiculo()
-            //EditarVeiculo()
+            ListarVeiculo()
         }
 
         binding.btnCliente.setOnClickListener{
@@ -57,23 +56,11 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    fun CadastroUsuario() {
+    fun ListarUsuario() {
         startActivity(Intent(this, UsuarioListActivity::class.java))
     }
 
-    fun CadastroVeiculo() {
+    fun ListarVeiculo() {
         startActivity(Intent(this, VeiculoListActivity::class.java))
-    }
-
-    fun EditarVeiculo() {
-        val intent = Intent(this, VeiculoCadastroActivity::class.java)
-        intent.putExtra("KEY_VEICULOID", 1);
-        startActivity(intent);
-    }
-
-    fun EditarUsuario() {
-        val intent = Intent(this, UsuarioCadastroActivity::class.java)
-        intent.putExtra("KEY_USUARIOID", "4");
-        startActivity(intent);
     }
 }

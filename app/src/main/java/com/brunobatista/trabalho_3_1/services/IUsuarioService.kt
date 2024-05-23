@@ -1,6 +1,5 @@
 package com.brunobatista.trabalho_3_1.services
 
-import com.brunobatista.trabalho_3_1.model.Result
 import com.brunobatista.trabalho_3_1.model.ResultUsuario
 import com.brunobatista.trabalho_3_1.model.ResultUsuarioList
 import com.brunobatista.trabalho_3_1.model.Usuario

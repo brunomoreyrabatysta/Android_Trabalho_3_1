@@ -1,32 +1,22 @@
 package com.brunobatista.trabalho_3_1.ui.usuario
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.brunobatista.trabalho_3_1.databinding.UsuarioItemBinding
 import com.brunobatista.trabalho_3_1.model.Usuario
-import com.google.gson.GsonBuilder
-import java.lang.reflect.Type
 
 
 class UsuarioAdapter(
-    usuarioListActivity: UsuarioListActivity,
-    usuarioListActivity1: UsuarioListActivity
+    _onDeleteClickListener: OnDeleteClickListener,
+    _onUpdateClickListener: OnUpdateClickListener
 ) : RecyclerView.Adapter<UsuarioAdapter.ViewHolder>() {
     private var usuarioList = ArrayList<Usuario>()
 
-    private var onDeleteClickListener: OnDeleteClickListener? = null
-    private var onUpdateClickListener: OnUpdateClickListener? = null
-
-    fun UsuarioAdapter(_onDeleteClickListener: OnDeleteClickListener?,
-                        _onUpdateClickListener: OnUpdateClickListener?) {
-        onDeleteClickListener = _onDeleteClickListener
-        onUpdateClickListener = _onUpdateClickListener
-    }
+    private var onDeleteClickListener: OnDeleteClickListener? = _onDeleteClickListener
+    private var onUpdateClickListener: OnUpdateClickListener? = _onUpdateClickListener
 
     fun setUsuarioList(usuarioList: List<Usuario>) {
-        Log.d("UsuarioAdapter", "setUsuarioList")
         this.usuarioList = usuarioList as ArrayList<Usuario>
         notifyDataSetChanged()
     }

@@ -1,8 +1,8 @@
 package com.brunobatista.trabalho_3_1.ui.veiculo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,20 +24,16 @@ class VeiculoCadastroActivity : AppCompatActivity() {
         binding = ActivityVeiculoCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var strVeiculo: String? = intent.getStringExtra("KEY_VEICULOID")
 
-        var bundle :Bundle ?=intent.extras
-
-        //if (bundle != null ) {
-            veiculoId = "2"
-        /*
+        if (strVeiculo != null) {
+            veiculoId = strVeiculo
         } else {
             veiculoId = ""
         }
-         */
 
         novoRegistro = veiculoId.isEmpty();
 
-        Log.d("VeiculoCadastroActivity" , "teste 2")
         if (novoRegistro) {
             binding.lblTitulo.setText("NOVO CADASTRO")
             binding.edtMarca.setText("")
@@ -54,9 +50,17 @@ class VeiculoCadastroActivity : AppCompatActivity() {
 
             viewModel.getVeiculoById(veiculoId.toInt())
             viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
-                set(veiculo)
+                if (veiculo == null) {
+                    Toast.makeText(this, "Veículo não cadastrado!", Toast.LENGTH_LONG).show()
+                    finish()
+                } else {
+                    set(veiculo)
+                }
             })
         }
+
+        binding.btnSalvar.setOnClickListener(View.OnClickListener { Salvar() })
+        binding.btnExcluir.setOnClickListener(View.OnClickListener { Excluir() })
     }
 
     fun set(veiculo: Veiculo) {
@@ -77,5 +81,68 @@ class VeiculoCadastroActivity : AppCompatActivity() {
         binding.edtPlaca.setText(placa)
         binding.edtRenavam.setText(renavam)
         binding.edtChassi.setText(chassi)
+    }
+
+    fun Salvar() {
+        if (Validar()) {
+            viewModel = ViewModelProvider(this)[VeiculoViewModel::class.java]
+
+            var veiculo: Veiculo
+            var mensagem: String
+
+            if (!novoRegistro) {
+                veiculo = Veiculo(veiculoId.toInt(),
+                    binding.edtMarca.text.toString(),
+                    binding.edtModelo.text.toString(),
+                    binding.edtCor.text.toString(),
+                    "",
+                    binding.edtAnoFabricacao.text.toString().toInt(),
+                    binding.edtAnoModelo.text.toString().toInt(),
+                    "",
+                    binding.edtPlaca.text.toString(),
+                    binding.edtRenavam.text.toString(),
+                    binding.edtChassi.text.toString(),
+                    "",
+                    "")
+
+                viewModel.UpdateVeiculo(veiculoId.toInt(), veiculo)
+                mensagem = "Veículo alterado com sucesso!"
+            } else {
+                veiculo = Veiculo(0,
+                    binding.edtMarca.text.toString(),
+                    binding.edtModelo.text.toString(),
+                    binding.edtCor.text.toString(),
+                    "",
+                    binding.edtAnoFabricacao.text.toString().toInt(),
+                    binding.edtAnoModelo.text.toString().toInt(),
+                    "",
+                    binding.edtPlaca.text.toString(),
+                    binding.edtRenavam.text.toString(),
+                    binding.edtChassi.text.toString(),
+                    "",
+                    "")
+
+                viewModel.AddVeiculo(veiculo)
+                mensagem = "Veículo cadastrado com sucesso!"
+            }
+
+            viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
+                Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
+            })
+        }
+    }
+
+    fun Excluir() {
+        viewModel = ViewModelProvider(this)[VeiculoViewModel::class.java]
+        viewModel.DeleteVeiculo(veiculoId.toInt())
+
+        viewModel.observeVeiculoLiveData().observe(this, Observer { veiculo ->
+            Toast.makeText(this, "Veículo excluído com sucesso!", Toast.LENGTH_LONG).show()
+        })
+    }
+
+    fun  Validar(): Boolean {
+
+        return true;
     }
 }

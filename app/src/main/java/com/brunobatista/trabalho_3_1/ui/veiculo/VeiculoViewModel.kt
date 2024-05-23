@@ -4,14 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.brunobatista.trabalho_3_1.model.Result
 import com.brunobatista.trabalho_3_1.model.ResultVeiculo
 import com.brunobatista.trabalho_3_1.model.ResultVeiculoList
 import com.brunobatista.trabalho_3_1.model.Veiculo
 import com.brunobatista.trabalho_3_1.services.IVeiculoService
 import com.brunobatista.trabalho_3_1.services.RetrofitClient
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +47,7 @@ class VeiculoViewModel : ViewModel(){
                     if(response.isSuccessful) {
                         veiculoLiveData.value = response.body()!!.data
                     } else {
-                        Log.d("VeiculoViewModel",response.message())
+                        veiculoLiveData.value = null
                     }
                 }
 
@@ -62,5 +59,59 @@ class VeiculoViewModel : ViewModel(){
 
     fun observeVeiculoLiveData(): LiveData<Veiculo> {
         return veiculoLiveData
+    }
+
+    fun AddVeiculo(veiculo: Veiculo) {
+        RetrofitClient.createService(IVeiculoService::class.java).AddVeiculo(veiculo)
+            .enqueue(object : Callback<ResultVeiculo> {
+                override fun onResponse(call: Call<ResultVeiculo>, response: Response<ResultVeiculo>
+                ) {
+                    if(response.isSuccessful) {
+                        veiculoLiveData.value = response.body()!!.data
+                    } else {
+                        veiculoLiveData.value = null
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultVeiculo>, t: Throwable) {
+                    Log.d("VeiculoViewModel", t.message.toString())
+                }
+            })
+    }
+
+    fun UpdateVeiculo(veiculoId: Int, veiculo: Veiculo) {
+        RetrofitClient.createService(IVeiculoService::class.java).UpdateVeiculo(veiculoId, veiculo)
+            .enqueue(object : Callback<ResultVeiculo> {
+                override fun onResponse(call: Call<ResultVeiculo>, response: Response<ResultVeiculo>
+                ) {
+                    if(response.isSuccessful) {
+                        veiculoLiveData.value = response.body()!!.data
+                    } else {
+                        veiculoLiveData.value = null
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultVeiculo>, t: Throwable) {
+                    Log.d("VeiculoViewModel", t.message.toString())
+                }
+            })
+    }
+
+    fun DeleteVeiculo(veiculoId: Int) {
+        RetrofitClient.createService(IVeiculoService::class.java).DeleteVeiculo(veiculoId)
+            .enqueue(object : Callback<ResultVeiculo> {
+                override fun onResponse(call: Call<ResultVeiculo>, response: Response<ResultVeiculo>
+                ) {
+                    if(response.isSuccessful) {
+                        veiculoLiveData.value = response.body()!!.data
+                    } else {
+                        veiculoLiveData.value = null
+                    }
+                }
+
+                override fun onFailure(call: Call<ResultVeiculo>, t: Throwable) {
+                    Log.d("VeiculoViewModel", t.message.toString())
+                }
+            })
     }
 }

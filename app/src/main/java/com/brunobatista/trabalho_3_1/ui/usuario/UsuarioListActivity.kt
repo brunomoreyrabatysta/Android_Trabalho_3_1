@@ -2,7 +2,6 @@ package com.brunobatista.trabalho_3_1.ui.usuario
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -48,7 +47,6 @@ class UsuarioListActivity : AppCompatActivity(), UsuarioAdapter.OnDeleteClickLis
     }
 
     override fun onUpdateClick(usuarioId: Int) {
-        Log.d("UsuarioListActivity", "UPDATE")
         val intent = Intent(this, UsuarioCadastroActivity::class.java)
         intent.putExtra("KEY_USUARIOID", usuarioId.toString());
         startActivity(intent);

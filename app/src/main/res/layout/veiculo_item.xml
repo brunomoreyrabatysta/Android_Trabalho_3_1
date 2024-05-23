@@ -2,40 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/lblVeiculoId"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="VeiculoId"
-        android:padding="8dp"/>
+        android:orientation="horizontal"
+        android:gravity="center" >
 
-    <TextView
-        android:id="@+id/lblMarca"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Marca"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="16dp"
+            android:layout_weight="2">
 
-    <TextView
-        android:id="@+id/lblModelo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Modelo"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Código.: " />
+                <TextView
+                    android:id="@+id/lblVeiculoId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/lblPlaca"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Placa"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Veículo.: " />
+                <TextView
+                    android:id="@+id/lblMarca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - " />
+                <TextView
+                    android:id="@+id/lblModelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Placa.: " />
+                <TextView
+                    android:id="@+id/lblPlaca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnAlterar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/baseline_edit_24"
+            android:text="E"/>
+
+        <ImageButton
+            android:id="@+id/btnExcluir"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/baseline_delete_24"/>
+    </LinearLayout>
 </LinearLayout>
